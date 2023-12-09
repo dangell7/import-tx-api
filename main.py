@@ -1,9 +1,9 @@
+import os
 import asyncio
 import json
 import requests
 
 # from xrpl.asyncio.clients import AsyncWebsocketClient
-
 
 from typing import Dict, Any
 from xrpl.clients import WebsocketClient
@@ -15,9 +15,8 @@ from xrpl.models.requests.ledger import Ledger
 from server.services.lmdb import AppLMDBService
 
 # async_client = AsyncWebsocketClient('wss://xahau-test.net')
-xrpl_client = WebsocketClient("wss://s.altnet.rippletest.net:51233")
-xahau_client = WebsocketClient("wss://xahau-test.net")
-
+xrpl_client = WebsocketClient(os.environ['XRPL_WSS_ENDPOINT'])
+xahau_client = WebsocketClient(os.environ['XAHAU_WSS_ENDPOINT'])
 
 def validate_tx(burn_tx: Dict[str, Any], ledger_tx: Dict[str, Any]) -> bool:
     if (
@@ -54,7 +53,7 @@ def get_burn_tx_hash(ledger_index: int, burn_tx: Dict[str, Any]) -> str:
 
 def main():
     with xahau_client as client:
-        print("Connected to Xahaud on wss://xahau-test.net")
+        print(f"Connected to Xahaud on {os.environ['XAHAU_WSS_ENDPOINT']}")
         req = Subscribe(streams=[StreamParameter.TRANSACTIONS])
         client.send(req)
         for message in client:
