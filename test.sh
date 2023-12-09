@@ -1,0 +1,1 @@
+APP_ENV=config.TestUConfig poetry run pytest

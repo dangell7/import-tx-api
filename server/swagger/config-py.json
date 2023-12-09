@@ -1,0 +1,5 @@
+{
+    "packageName": "server",
+    "modelPackage": "models",
+    "apiPackage": "apis"
+ }

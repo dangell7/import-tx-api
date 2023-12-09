@@ -1,0 +1,15 @@
+.venv/
+dist/
+node_modules/
+.next/
+build/
+bin/
+lib/
+*.egg-info/
+README.md
+.gitignore
+
+# ENV files #
+######################
+env/
+.env*

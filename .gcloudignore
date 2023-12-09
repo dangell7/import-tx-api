@@ -1,0 +1,16 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+.venv/
+dist/
+build/
+bin/
+lib/
+*.egg-info/
+README.md
+.gitignore
+
+# ENV files #
+######################
+env/
+.env*

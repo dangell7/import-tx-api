@@ -1,0 +1,134 @@
+{
+    "ctid": "C089A1850003535A",
+    "engine_result": "tesSUCCESS",
+    "engine_result_code": 0,
+    "engine_result_message": "The transaction was applied. Only final in a validated ledger.",
+    "ledger_hash": "55697D7D2E5A04FC092699D08BE5DCA2DF12595EF0517CBDBDFC608FF1A7E70A",
+    "ledger_index": 9019781,
+    "meta": {
+        "AffectedNodes": [
+            {
+                "CreatedNode": {
+                    "LedgerEntryType": "DirectoryNode",
+                    "LedgerIndex": "4D0541207E2915B5FACA763014C6B3A51DBF6ADC52FB039B5006FE26CF46CD00",
+                    "NewFields": {
+                        "ExchangeRate": "5006fe26cf46cd00",
+                        "RootIndex": "4D0541207E2915B5FACA763014C6B3A51DBF6ADC52FB039B5006FE26CF46CD00",
+                        "TakerPaysCurrency": "0000000000000000000000005452590000000000",
+                        "TakerPaysIssuer": "077C1228F56602C6494A4ED680CB484B08AB9FCB"
+                    }
+                }
+            },
+            {
+                "DeletedNode": {
+                    "FinalFields": {
+                        "ExchangeRate": "50072d398aadb400",
+                        "Flags": 0,
+                        "RootIndex": "4D0541207E2915B5FACA763014C6B3A51DBF6ADC52FB039B50072D398AADB400",
+                        "TakerGetsCurrency": "0000000000000000000000000000000000000000",
+                        "TakerGetsIssuer": "0000000000000000000000000000000000000000",
+                        "TakerPaysCurrency": "0000000000000000000000005452590000000000",
+                        "TakerPaysIssuer": "077C1228F56602C6494A4ED680CB484B08AB9FCB"
+                    },
+                    "LedgerEntryType": "DirectoryNode",
+                    "LedgerIndex": "4D0541207E2915B5FACA763014C6B3A51DBF6ADC52FB039B50072D398AADB400"
+                }
+            },
+            {
+                "DeletedNode": {
+                    "FinalFields": {
+                        "Account": "rg2MAgwqwmV9TgMexVBpRDK89vMyJkpbC",
+                        "BookDirectory": "4D0541207E2915B5FACA763014C6B3A51DBF6ADC52FB039B50072D398AADB400",
+                        "BookNode": "0",
+                        "Flags": 0,
+                        "OwnerNode": "91",
+                        "PreviousTxnID": "F6B64F379949130F368DE78BB0219EC0696E7FE1EDE71DB2C11700A981C0ED81",
+                        "PreviousTxnLgrSeq": 9016916,
+                        "Sequence": 5363247,
+                        "TakerGets": "100000000000",
+                        "TakerPays": {
+                            "currency": "TRY",
+                            "issuer": "rg2MAgwqwmV9TgMexVBpRDK89vMyJkpbC",
+                            "value": "2020050"
+                        }
+                    },
+                    "LedgerEntryType": "Offer",
+                    "LedgerIndex": "8727DECF1DDFC260D1E1883A3D4D1B50010EC479E40F99AC8416BF54487CEFAA"
+                }
+            },
+            {
+                "ModifiedNode": {
+                    "FinalFields": {
+                        "Flags": 0,
+                        "IndexPrevious": "90",
+                        "Owner": "rg2MAgwqwmV9TgMexVBpRDK89vMyJkpbC",
+                        "RootIndex": "81183C0284C415F8FCF0FEFF5AE2045D0BC72B2E5E8FD09BA7045F3BC181FC53"
+                    },
+                    "LedgerEntryType": "DirectoryNode",
+                    "LedgerIndex": "BE79FA743BB845F037F8B92412C2370E695CD617C36671FE2E1E34FAB5F859FD"
+                }
+            },
+            {
+                "CreatedNode": {
+                    "LedgerEntryType": "Offer",
+                    "LedgerIndex": "CD6FB3FFED106822E26D188B36E1AF272D2B84385758720FE659ADAED3EBFD83",
+                    "NewFields": {
+                        "Account": "rg2MAgwqwmV9TgMexVBpRDK89vMyJkpbC",
+                        "BookDirectory": "4D0541207E2915B5FACA763014C6B3A51DBF6ADC52FB039B5006FE26CF46CD00",
+                        "OwnerNode": "91",
+                        "Sequence": 5363257,
+                        "TakerGets": "100000000000",
+                        "TakerPays": {
+                            "currency": "TRY",
+                            "issuer": "rg2MAgwqwmV9TgMexVBpRDK89vMyJkpbC",
+                            "value": "1968292.5"
+                        }
+                    }
+                }
+            },
+            {
+                "ModifiedNode": {
+                    "FinalFields": {
+                        "Account": "rg2MAgwqwmV9TgMexVBpRDK89vMyJkpbC",
+                        "Balance": "9999999818990",
+                        "Flags": 8388608,
+                        "OwnerCount": 38,
+                        "Sequence": 5363258
+                    },
+                    "LedgerEntryType": "AccountRoot",
+                    "LedgerIndex": "E751FFD76B6B1A3F64A88254056CAFB081AD967B27E06BB3116106797D47C9C5",
+                    "PreviousFields": {
+                        "Balance": "9999999819002",
+                        "Sequence": 5363257
+                    }
+                }
+            }
+        ],
+        "TransactionIndex": 3,
+        "TransactionResult": "tesSUCCESS"
+    },
+    "status": "closed",
+    "transaction": {
+        "Account": "rg2MAgwqwmV9TgMexVBpRDK89vMyJkpbC",
+        "Fee": "12",
+        "Flags": 0,
+        "LastLedgerSequence": 9019799,
+        "NetworkID": 21338,
+        "OfferSequence": 5363247,
+        "Sequence": 5363257,
+        "SigningPubKey": "ED8B78AFF61FA25E4CAC455965C46C19C6AB2F786268D5C9E919183701C88C4970",
+        "TakerGets": "100000000000",
+        "TakerPays": {
+            "currency": "TRY",
+            "issuer": "rg2MAgwqwmV9TgMexVBpRDK89vMyJkpbC",
+            "value": "1968292.5"
+        },
+        "TransactionType": "OfferCreate",
+        "TxnSignature": "647393027CE84396F968244893D3B63654A4CD2A35BD6B0188EBE032C6B070EC17C27BB00C743522C3DF7CD66EC2098B06B98099E24C9B71845EF9D9D04D770F",
+        "date": 755454372,
+        "hash": "99AB13F153992F3914CAB1DEBDC74AC12CF9871D08B87FEBB2C9CB15A75E47ED",
+        "owner_funds": "9999991218990"
+    },
+    "type": "transaction",
+    "validated": True
+}

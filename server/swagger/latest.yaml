@@ -1,0 +1,73 @@
+openapi: 3.0.1
+info:
+  title: Import Api
+  contact:
+    email: dangell@transia.co
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: What is Import API
+  url: https://import.transia.co
+servers:
+- url: https://import-api-3uzuax5sua-uc.a.run.app/v1
+tags:
+- name: import
+  description: Import API Endpoints
+paths:
+  /import/tx:
+    get:
+      tags:
+      - import
+      summary: Lookup an import tx by hash
+      operationId: import_tx
+      parameters:
+      - name: hash_id
+        in: query
+        description: Address to query by
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Tx Lookup Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportTxResponse'
+        "400":
+          description: Invalid Params supplied
+        "405":
+          description: Validation exception
+      x-openapi-router-controller: server.controllers.import_controller
+components:
+  schemas:
+    MessageResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+      example:
+        code: 0
+        type: type
+        message: message
+    ImportTxResponse:
+      required:
+      - tx
+      - meta
+      type: object
+      properties:
+        tx:
+          type: object
+          additionalProperties: {}
+        meta:
+          type: object
+          additionalProperties: {}
