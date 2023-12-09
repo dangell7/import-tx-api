@@ -33,23 +33,27 @@ print(response)
 ```
 
 ```
-pm2 start python --name "import-tx-api" -- main.py
+npm install pm2@latest -g
+```
+
+```
+pm2 start .venv/bin/python --name "import-tx-api" -- main.py
 ```
 
 Build Docker
 
 ```
-docker build -t transia/import-tx-api .
+docker build -t transia/import-tx-api \
+--build-arg API_ENV=config.ProductionConfig \
+--build-arg API_HOST=127.0.0.1 \
+--build-arg API_PORT=8080 \
+--build-arg XRPL_WSS_ENDPOINT=wss://s1.ripple.com/ \
+--build-arg XAHAU_WSS_ENDPOINT=wss://s2.ripple.com/ \
+.
 ```
 
 Run Docker
 
 ```
-docker run -d --name import-tx-api-instance -p 8080:8080 \
--e API_ENV=config.ProductionConfig \
--e API_HOST=127.0.0.1 \
--e API_PORT=8080 \
--e XRPL_WSS_ENDPOINT=wss://s1.ripple.com/ \
--e XAHAU_WSS_ENDPOINT=wss://s2.ripple.com/ \
-transia/import-tx-api
+docker run -d --name import-tx-api-instance -p 8080:8080 transia/import-tx-api
 ```

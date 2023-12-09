@@ -2,6 +2,7 @@
 # coding: utf-8
 
 import logging
+import json
 import connexion
 from typing import Dict, Any
 
@@ -37,7 +38,7 @@ def import_tx(hash_id: str = None):  # noqa: E501
         client = AppLMDBService()
         response = client.get(hash_id)
         if response:
-            return ImportTxResponse(response.decode('utf-8'))
+            return ImportTxResponse(json.loads(response.decode('utf-8')))
         
         return ImportTxResponse(response)
 

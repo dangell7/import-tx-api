@@ -70,11 +70,63 @@ def main():
                 burn_ledger_index: str = burn_dump["ledger"]["index"]
                 burn_hash: str = get_burn_tx_hash(burn_ledger_index, burn_tx)
                 client: AppLMDBService = AppLMDBService()
+                print(f'BURN HASH: {burn_hash}')
                 client.create(burn_hash,  json.dumps(tx).encode('utf-8'))
 
 
+
+def backfill(start: int, end: int):
+    with xahau_client as client:
+        print(f"Connected to XRPL on {os.environ['XAHAU_WSS_ENDPOINT']}")
+
+        for ledger_index in range(start, end + 1):
+            ledger_info = Ledger(
+                ledger_index=ledger_index,
+                transactions=True,
+                expand=True,
+            )
+            response = client.request(ledger_info)
+            ledger: Dict[str, Any] = response.result.get("ledger")
+
+            if not ledger or 'transactions' not in ledger:
+                print(f"Invalid Ledger")
+                continue
+
+            if ledger.get("transactions") == []:
+                print(f"No transactions found in ledger {ledger_index}")
+                continue
+
+            for tx in ledger.get("transactions"):
+                if tx.get('TransactionType') == 'Import':
+                    blob: str = tx['Blob']
+                    byte_blob = bytes.fromhex(blob)
+                    burn_dump = json.loads(byte_blob.decode("utf-8"))
+                    burn_tx_blob: str = burn_dump["transaction"]["blob"]
+                    burn_tx: Dict[str, Any] = decode(burn_tx_blob)
+                    burn_ledger_index: str = burn_dump["ledger"]["index"]
+                    burn_hash: str = get_burn_tx_hash(burn_ledger_index, burn_tx)
+                    print(f'BURN HASH: {burn_hash}')
+                    lmdb_client: AppLMDBService = AppLMDBService()
+                    lmdb_client.create(burn_hash, json.dumps(tx).encode('utf-8'))
+
+            print(f"Processed ledger {ledger_index}")
+
+import argparse
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="XRPL Import Transaction Processor")
+    parser.add_argument("--backfill", action="store_true", help="Run the backfill process")
+    parser.add_argument("--start", type=int, help="Starting ledger index for backfill")
+    parser.add_argument("--end", type=int, help="Ending ledger index for backfill")
+
+    args = parser.parse_args()
+
+    if args.backfill:
+        if args.start is None or args.end is None:
+            start_ledger_index = 9025000  # Replace with the starting ledger index you want to backfill from
+            end_ledger_index = 9025167    # Replace with the ending ledger index you want to backfill to
+            backfill(start_ledger_index, end=end_ledger_index)
+        else:
+            backfill(start=args.start, end=args.end)
+    else:
+        main()
     # asyncio.run(main())
-
-
