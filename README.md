@@ -31,3 +31,25 @@ client: AppLMDBService = AppLMDBService()
 response = client.get('B821A5C6257BB8901C8321406D2A595BA2A3CF3EFEF80F139F909B63F888E53C').decode('utf-8')
 print(response)
 ```
+
+```
+pm2 start python --name "import-tx-api" -- main.py
+```
+
+Build Docker
+
+```
+docker build -t transia/import-tx-api .
+```
+
+Run Docker
+
+```
+docker run -d --name import-tx-api-instance -p 8080:8080 \
+-e API_ENV=config.ProductionConfig \
+-e API_HOST=127.0.0.1 \
+-e API_PORT=8080 \
+-e XRPL_WSS_ENDPOINT=wss://s1.ripple.com/ \
+-e XAHAU_WSS_ENDPOINT=wss://s2.ripple.com/ \
+transia/import-tx-api
+```
