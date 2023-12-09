@@ -73,7 +73,7 @@ async def main():
 
 
 
-def backfill(start: int, end: int):
+async def backfill(start: int, end: int):
     with xahau_client as client:
         print(f"Connected to XRPL on {os.environ['XAHAU_WSS_ENDPOINT']}")
 
@@ -83,7 +83,7 @@ def backfill(start: int, end: int):
                 transactions=True,
                 expand=True,
             )
-            response = client.request(ledger_info)
+            response = await client.request(ledger_info)
             ledger: Dict[str, Any] = response.result.get("ledger")
 
             if not ledger or 'transactions' not in ledger:
@@ -122,9 +122,9 @@ if __name__ == "__main__":
         if args.start is None or args.end is None:
             start_ledger_index = 9025000  # Replace with the starting ledger index you want to backfill from
             end_ledger_index = 9025167    # Replace with the ending ledger index you want to backfill to
-            backfill(start_ledger_index, end=end_ledger_index)
+            asyncio.run(backfill(start_ledger_index, end=end_ledger_index))
         else:
-            backfill(start=args.start, end=args.end)
+            asyncio.run(backfill(start=args.start, end=args.end))
     else:
         # main()
         asyncio.run(main())
