@@ -66,7 +66,7 @@ async def main():
                 burn_tx_blob: str = burn_dump["transaction"]["blob"]
                 burn_tx: Dict[str, Any] = decode(burn_tx_blob)
                 burn_ledger_index: str = burn_dump["ledger"]["index"]
-                burn_hash: str = get_burn_tx_hash(burn_ledger_index, burn_tx)
+                burn_hash: str = await get_burn_tx_hash(burn_ledger_index, burn_tx)
                 client: AppLMDBService = AppLMDBService()
                 print(f'BURN HASH: {burn_hash}')
                 client.create(burn_hash,  json.dumps(tx).encode('utf-8'))
@@ -102,7 +102,7 @@ async def backfill(start: int, end: int):
                     burn_tx_blob: str = burn_dump["transaction"]["blob"]
                     burn_tx: Dict[str, Any] = decode(burn_tx_blob)
                     burn_ledger_index: str = burn_dump["ledger"]["index"]
-                    burn_hash: str = get_burn_tx_hash(burn_ledger_index, burn_tx)
+                    burn_hash: str = await get_burn_tx_hash(burn_ledger_index, burn_tx)
                     print(f'BURN HASH: {burn_hash}')
                     lmdb_client: AppLMDBService = AppLMDBService()
                     lmdb_client.create(burn_hash, json.dumps(tx).encode('utf-8'))
