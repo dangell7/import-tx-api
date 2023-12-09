@@ -1,22 +1,20 @@
 import os
 import asyncio
 import json
-import requests
-
-# from xrpl.asyncio.clients import AsyncWebsocketClient
 
 from typing import Dict, Any
-from xrpl.clients import WebsocketClient
+from xrpl.asyncio.clients import AsyncWebsocketClient
+# from xrpl.clients import WebsocketClient
 from xrpl.core.binarycodec.main import decode
-from xrpl.models.transactions import AccountSet
 from xrpl.models.requests import Subscribe, StreamParameter
 from xrpl.models.requests.ledger import Ledger
 
 from server.services.lmdb import AppLMDBService
 
-# async_client = AsyncWebsocketClient('wss://xahau-test.net')
-xrpl_client = WebsocketClient(os.environ['XRPL_WSS_ENDPOINT'])
-xahau_client = WebsocketClient(os.environ['XAHAU_WSS_ENDPOINT'])
+xrpl_client = AsyncWebsocketClient(os.environ['XRPL_WSS_ENDPOINT'])
+# xrpl_client = WebsocketClient(os.environ['XRPL_WSS_ENDPOINT'])
+xahau_client = AsyncWebsocketClient(os.environ['XAHAU_WSS_ENDPOINT'])
+# xahau_client = WebsocketClient(os.environ['XAHAU_WSS_ENDPOINT'])
 
 def validate_tx(burn_tx: Dict[str, Any], ledger_tx: Dict[str, Any]) -> bool:
     if (
@@ -31,32 +29,32 @@ def validate_tx(burn_tx: Dict[str, Any], ledger_tx: Dict[str, Any]) -> bool:
     return False
 
 
-def get_burn_tx_hash(ledger_index: int, burn_tx: Dict[str, Any]) -> str:
+async def get_burn_tx_hash(ledger_index: int, burn_tx: Dict[str, Any]) -> str:
 
     # DA: try this but it might not work for multi signed txs
     # prefix = hex(_TRANSACTION_HASH_PREFIX)[2:].upper()
     # encoded_str = bytes.fromhex(prefix + encode(self.to_xrpl()))
     # return sha512(encoded_str).digest().hex().upper()[:64]
 
-    with xrpl_client as _:
+    async with xrpl_client as _:
         ledger_info = Ledger(
             ledger_index=ledger_index,
             transactions=True,
             expand=True,
         )
-        response = xrpl_client.request(ledger_info)
+        response = await xrpl_client.request(ledger_info)
         ledger: Dict[str, Any] = response.result.get("ledger")
         for tx in ledger.get("transactions"):
             if validate_tx(burn_tx, tx):
                 return tx["hash"]
 
 
-def main():
-    with xahau_client as client:
+async def main():
+    async with xahau_client as client:
         print(f"Connected to Xahaud on {os.environ['XAHAU_WSS_ENDPOINT']}")
         req = Subscribe(streams=[StreamParameter.TRANSACTIONS])
-        client.send(req)
-        for message in client:
+        await client.send(req)
+        async for message in client:
             if 'transaction' not in message:
                 continue
             
@@ -128,5 +126,5 @@ if __name__ == "__main__":
         else:
             backfill(start=args.start, end=args.end)
     else:
-        main()
-    # asyncio.run(main())
+        # main()
+        asyncio.run(main())

@@ -55,5 +55,5 @@ docker build -t transia/import-tx-api \
 Run Docker
 
 ```
-docker run -d --name import-tx-api-instance -p 8080:8080 transia/import-tx-api
+docker run -d --name import-tx-api-instance -p 8080:8080 -v $(pwd)/mylmdb:/app/mylmdb transia/import-tx-api
 ```
