@@ -17,8 +17,4 @@ logs
 ######################
 .pytest_cache
 
-# Server files #
-######################
-env
-
 mylmdb
