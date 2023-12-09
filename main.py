@@ -74,7 +74,7 @@ async def main():
 
 
 async def backfill(start: int, end: int):
-    with xahau_client as client:
+    async with xahau_client as client:
         print(f"Connected to XRPL on {os.environ['XAHAU_WSS_ENDPOINT']}")
 
         for ledger_index in range(start, end + 1):
